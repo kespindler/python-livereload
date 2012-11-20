@@ -95,7 +95,8 @@ class _CommandCompiler(BaseCompiler):
         if stderr:
             raise Exception(stderr)
         #: stdout is bytes, decode for python3
-        return stdout.decode()
+        #return stdout.decode()
+        return stdout
 
 
 class LessCompiler(_CommandCompiler):
