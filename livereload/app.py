@@ -190,12 +190,14 @@ handlers = [
 
 def main():
     if len(sys.argv) > 1:
+        from livereload.compiler import rstc
         #: command-line tools like Makefile
-        execfile('Guardfile')
-        for cmd in sys.argv[1:]:
-            print(cmd)
-            exec('%s()' % cmd)
-        return
+        for fpath in sys.argv[1:]:
+            root, ext = os.path.splitext(fpath)
+            if ext == '.rst':
+                Task.add(fpath, rstc(fpath, root + '.html'))
+            else:
+                logger.warning('Unrecognized file extension '+fpath)
 
     #: option config is not available
     #: but this enables pretty colorful logging

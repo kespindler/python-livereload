@@ -93,6 +93,20 @@ refreshing the browser::
 And it will compile less css before refreshing the browser now.
 
 
+More Examples
+-------------
+::
+
+    $ livereload
+
+Searches for a Guardfile. if exists, execute it, else does a reload every time a file in . changes.
+
+::
+
+    $ livereload foo.rst 
+
+every time foo.rst is modified, reruns ``rst2html.py foo.rst > foo.html``. Can be used for any number of files. Currently only ``.rst`` is supported.
+
 Others
 --------
 
