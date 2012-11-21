@@ -192,12 +192,19 @@ def main():
     if len(sys.argv) > 1:
         from livereload.compiler import rstc
         #: command-line tools like Makefile
-        for fpath in sys.argv[1:]:
+        paths = sys.argv[1:]
+        for fpath in paths:
             root, ext = os.path.splitext(fpath)
             if ext == '.rst':
                 Task.add(fpath, rstc(fpath, root + '.html'))
             else:
                 logger.warning('Unrecognized file extension '+fpath)
+        if len(paths) == 1:
+            import webbrowser
+            Task.tasks[paths[0]]()
+            root, ext = os.path.splitext(paths[0])
+            logging.info('Opening ' + root + '.html')
+            webbrowser.open('file://localhost' + os.path.abspath(root + '.html'))
 
     #: option config is not available
     #: but this enables pretty colorful logging
